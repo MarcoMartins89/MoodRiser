@@ -101,7 +101,7 @@ function render() {
     // Store the updated array back into a cookie
     setCookie('logs', JSON.stringify(data), 30); // Set the cookie to expire in 30 days
     
-    console.log(getCookie('logs'));
+   
   });
 
 

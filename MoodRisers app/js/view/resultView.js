@@ -8,17 +8,16 @@ const item = document.createElement("div");
 const moodData = getCookie('logs');
 
 
-function render(message, quote, books) {
+function render(message, quote, books, gradient) {
 
 
-  console.log(quote);
   const container = document.querySelector("#container");
   container.innerHTML = "";
 
 
-  item.className = `col text-black bg-light mb-3" style="max-width: 18rem;`;
+  //item.className = `col text-black bg-light mb-3" style="max-width: 18rem;`;
   item.innerHTML = `
-      <div class="coverAll">
+      <div class="coverAll" style="${gradient}">
       <div class="space-top-bar">
       <button type="button" id="homeButton" class="btn btn-primary fixed-top-home">Home</button>
       <button type="button" id="moodHistoryButton" class="btn btn-primary fixed-top-home" data-bs-toggle="modal" data-bs-target="#chartModal">
@@ -44,8 +43,8 @@ function render(message, quote, books) {
     
 
 </div>
-
-<button type="button" id="clearButton" class="btn btn-primary buttonClear">Clear History</button>
+<button type="button" id="closeButton" data-bs-dismiss="modal" class="btn btn-primary buttonClear">Close</button>
+<button type="button" id="clearButton" data-bs-dismiss="modal" class="btn btn-danger ">Clear History</button>
 
 </div>
   <div class="quote letter"><h1>${quote}</h1></div>
@@ -53,7 +52,7 @@ function render(message, quote, books) {
 
   <div class="quote"><h2>Book's that we suggest</h2></div>
   <div class="container">
-  <div id="row"></div>
+  <div id="row"></div><div id="pi"> <h2 id=pii>If we didn't help enough, please don't be afraid to talk to qualified professionals.</h2></div>
   </div>
   </div>
  
@@ -64,12 +63,19 @@ function render(message, quote, books) {
 
   container.appendChild(list);
 
+
   if (!moodData) {
     document.getElementById('moodHistoryButton').style.display = 'none';
   }
 
-  document.getElementById("homeButton").addEventListener('click', ()=>{
-    window.location.hash =`/`;
+  document.getElementById("closeButton").addEventListener('click', () => {
+    const modalBack = document.getElementsByClassName("modal-backdrop")[0].style.display = "none";
+    const modalDiv = document.getElementById('chartModal').style.display = "none";
+
+  });
+
+  document.getElementById("homeButton").addEventListener('click', () => {
+    window.location.hash = `/`;
   });
 
   document.getElementById("clearButton").addEventListener('click', () => {
@@ -79,11 +85,7 @@ function render(message, quote, books) {
   function clearCookie(name) {
     document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=`;
 
-    // Close the modal
-    const modalBack = document.getElementsByClassName("modal-backdrop")[0];
-    const modalDiv = document.getElementById('chartModal');
-    modalDiv.parentNode.removeChild(modalDiv);
-    modalBack.parentNode.removeChild(modalBack);
+
 
     // Hide the mood history button
     document.getElementById('moodHistoryButton').style.display = 'none';
@@ -95,21 +97,21 @@ function render(message, quote, books) {
       const [timestamp, moodValue] = item.split('#');
       return { timestamp: parseInt(timestamp), moodValue: parseInt(moodValue) };
     });
-    console.log(moodArray);
+
 
     populateGraph(moodArray);
   }
 
- console.log(books);
- const row = document.getElementById("row");
-            books.forEach(elem => {
-                const a = document.createElement("a");
-                a.href = `https://www.google.pt/search?q=${elem.title}`
-                a.target = "_blank"
-                const p = document.createElement("div");
-                p.className = "item";
-                p.style = "width: 14rem; margin: 10px";
-                p.innerHTML = `
+
+  const row = document.getElementById("row");
+  books.forEach(elem => {
+    const a = document.createElement("a");
+    a.href = `https://www.google.pt/search?q=${elem.title}`
+    a.target = "_blank"
+    const p = document.createElement("div");
+    p.className = "item";
+    p.style = "width: 14rem; margin: 10px";
+    p.innerHTML = `
                 
                 <a href="https://www.google.pt/search?q=${elem.title}"> <img src="${elem.cover}" alt="Image"></a>
                 <div class="overlay">
@@ -121,10 +123,12 @@ function render(message, quote, books) {
                 </div>
               
       `;
-                a.appendChild(p)
-                row.appendChild(a);
-            });
-   
+    a.appendChild(p)
+    row.appendChild(a);
+  });
+
+  container.appendChild(document.createElement("<h1 id=pi>If we didn't help enough, please don't be afraid to talk to qualified professionals.</h1>"))
+
 
 
 }

@@ -1,4 +1,5 @@
 import routes from './routes.js'
+import loadingView from './view/loadingView.js';
 
 function setCurrentRoute({ path, controller }) {
 
@@ -15,17 +16,21 @@ async function launchController(controllerName, args) {
 
 function navigate(path) {
 
+	
+
+
 	if (path === routes.currentPath.path) {
 		return;
 	}
 
+	loadingView.render();
+
 	const pathKey = path.split('/')[1];
 
-	console.log("this is path: " + path);
-	console.log("this is path key: " + pathKey);
+	
 	
 	const route = routes[pathKey] || routes.home;
-	console.log('this is controller ' + route.controller);
+	
 
 	setCurrentRoute(route);
 	launchController(route.controller, path.split('/').slice(2));

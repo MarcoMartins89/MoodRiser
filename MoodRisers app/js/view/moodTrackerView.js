@@ -19,13 +19,13 @@ function render() {
     `;
 
     container.appendChild(elem);
-    console.log(moodData);
+
     if (moodData) {
         const moodArray = JSON.parse(moodData).map(item => {
             const [timestamp, moodValue] = item.split('#');
             return { timestamp: parseInt(timestamp), moodValue: parseInt(moodValue) };
         });
-        console.log(moodArray);
+
 
         populateGraph(moodArray);
     }
