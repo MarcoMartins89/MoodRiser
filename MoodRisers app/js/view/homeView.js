@@ -20,9 +20,9 @@ function render() {
   container.innerHTML = ""; //removes the previous elements
 
  
-      item.className = `col text-black mb-3" style="max-width: 18rem;`;
+      //item.className = `col text-black mb-3" style="max-width: 18rem;`;
       item.innerHTML = `
-<div>
+<div class="coverAll">
   <form id="main">
     <center>
       <div class="mb-3" id="searchbar">
@@ -30,16 +30,20 @@ function render() {
         <br>
         <br>
         <div class="form-floating">
-          <textarea class="form-control" id="prompt" placeholder="Your mood here" style="height: 50px" required></textarea>
+          <input type="text" class="form-control" id="prompt" placeholder="Your mood here" style="height: 50px" required></input>
           <label for="floatingTextarea2">Get it off your chest...</label>
         </div>
       </div>
       <div class="container">
+      <h4>Rate your mood</h4>
+      <h6 id="rangeValue">5</h6>
+      
         <div class="centerText">
-          0
+          <h6>0</h6>
           <input type="range" class="form-range" min="0" max="10" id="moodRange">
-          10
+          <h6>10</h6>
         </div>
+        
       </div>
       <div class="col-md-1">
         <button class="btn btn-dark" id="button">Submit</button>
@@ -55,6 +59,14 @@ function render() {
   container.appendChild(buttonContainer);
  
     buttonContainer.appendChild(button);
+
+    const moodRange = document.getElementById('moodRange');
+    const rangeValue = document.getElementById('rangeValue');
+    
+    moodRange.addEventListener('input', function() {
+        rangeValue.textContent = moodRange.value;
+    });
+
 
     $('#button').on('click', function() {
       

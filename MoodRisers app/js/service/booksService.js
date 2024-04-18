@@ -3,7 +3,7 @@ async function get(message) {
 }
 
 async function fetchApi(message) {
-    const api = "https://gcc-backend-s8wv.onrender.com/api/get/playlist/";
+    const api = "https://gcc-backend-s8wv.onrender.com/api/get/books/";
 
     const response = await fetch(`${api}${message}`);
     const body = await response.json();

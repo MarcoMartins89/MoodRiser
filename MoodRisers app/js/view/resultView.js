@@ -1,29 +1,27 @@
 const list = document.createElement("div");
-  container.className = "bg-light";
+container.className = "bg-light";
 
-  list.style = `display: flex`;
-  list.className = `text-center`; 
- 
-  const item = document.createElement("div");
-  const moodData = getCookie('logs');
-  
+list.style = `display: flex`;
+list.className = `text-center`;
 
-function render(message) {
+const item = document.createElement("div");
+const moodData = getCookie('logs');
 
 
-  
+function render(message, quote, books) {
 
 
+  console.log(quote);
   const container = document.querySelector("#container");
   container.innerHTML = "";
 
- 
-      item.className = `col text-black bg-light mb-3" style="max-width: 18rem;`;
-      item.innerHTML = `
+
+  item.className = `col text-black bg-light mb-3" style="max-width: 18rem;`;
+  item.innerHTML = `
       <div class="coverAll">
       <div class="space-top-bar">
       <button type="button" id="homeButton" class="btn btn-primary fixed-top-home">Home</button>
-      <button type="button" id="moodHistoryButton" class="btn btn-primary fixed-top" data-bs-toggle="modal" data-bs-target="#chartModal">
+      <button type="button" id="moodHistoryButton" class="btn btn-primary fixed-top-home" data-bs-toggle="modal" data-bs-target="#chartModal">
       Mood History
     </button>
     </div>
@@ -50,51 +48,85 @@ function render(message) {
 <button type="button" id="clearButton" class="btn btn-primary buttonClear">Clear History</button>
 
 </div>
+  <div class="quote letter"><h1>${quote}</h1></div>
 
 
+  <div class="quote"><h2>Book's that we suggest</h2></div>
+  <div class="container">
+  <div id="row"></div>
   </div>
-  
+  </div>
  
   `;
 
-      list.appendChild(item);
-    
+  list.appendChild(item);
+
 
   container.appendChild(list);
 
-if(!moodData) {
-  document.getElementById('moodHistoryButton').style.display = 'none';
-}
+  if (!moodData) {
+    document.getElementById('moodHistoryButton').style.display = 'none';
+  }
 
+  document.getElementById("homeButton").addEventListener('click', ()=>{
+    window.location.hash =`/`;
+  });
 
-document.getElementById("clearButton").addEventListener('click', ()=> {
-  clearCookie('logs');
-});
+  document.getElementById("clearButton").addEventListener('click', () => {
+    clearCookie('logs');
+  });
 
-function clearCookie(name) {
-  document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=`;
+  function clearCookie(name) {
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=`;
 
-  // Close the modal
-  const modalBack = document.getElementsByClassName("modal-backdrop")[0];
-  const modalDiv = document.getElementById('chartModal');
-  modalDiv.parentNode.removeChild(modalDiv);
-  modalBack.parentNode.removeChild(modalBack);
+    // Close the modal
+    const modalBack = document.getElementsByClassName("modal-backdrop")[0];
+    const modalDiv = document.getElementById('chartModal');
+    modalDiv.parentNode.removeChild(modalDiv);
+    modalBack.parentNode.removeChild(modalBack);
 
-  // Hide the mood history button
-  document.getElementById('moodHistoryButton').style.display = 'none';
-}
+    // Hide the mood history button
+    document.getElementById('moodHistoryButton').style.display = 'none';
+  }
 
 
   if (moodData) {
-      const moodArray = JSON.parse(moodData).map(item => {
-          const [timestamp, moodValue] = item.split('#');
-          return { timestamp: parseInt(timestamp), moodValue: parseInt(moodValue) };
-      });
-      console.log(moodArray);
+    const moodArray = JSON.parse(moodData).map(item => {
+      const [timestamp, moodValue] = item.split('#');
+      return { timestamp: parseInt(timestamp), moodValue: parseInt(moodValue) };
+    });
+    console.log(moodArray);
 
-      populateGraph(moodArray);
+    populateGraph(moodArray);
   }
+
+ console.log(books);
+ const row = document.getElementById("row");
+            books.forEach(elem => {
+                const a = document.createElement("a");
+                a.href = `https://www.google.pt/search?q=${elem.title}`
+                a.target = "_blank"
+                const p = document.createElement("div");
+                p.className = "item";
+                p.style = "width: 14rem; margin: 10px";
+                p.innerHTML = `
+                
+                <a href="https://www.google.pt/search?q=${elem.title}"> <img src="${elem.cover}" alt="Image"></a>
+                <div class="overlay">
+                    <div class="overlay-content">
+                        <!-- Title and author -->
+                        <h3>${elem.title}</h3>
+                        <p>${elem.author}</p>
+                    </div>
+                </div>
+              
+      `;
+                a.appendChild(p)
+                row.appendChild(a);
+            });
    
+
+
 }
 
 
@@ -106,45 +138,45 @@ function populateGraph(data) {
   new Chart(ctx, {
     type: 'line',
     data: {
-        labels: labels,
-        datasets: [{
-            label: 'Mood',
-            backgroundColor: '#700000',
-            borderColor: '#700000',
-            data: values,
-            fill: false,
-            pointBorderWidth: 3,
-        }]
+      labels: labels,
+      datasets: [{
+        label: 'Mood',
+        backgroundColor: '#700000',
+        borderColor: '#700000',
+        data: values,
+        fill: false,
+        pointBorderWidth: 3,
+      }]
     },
     options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        layout: {
-            padding: {
-                top: 30 // Adjust this value to fit the title properly
-            }
-        },
-        scales: {
-            y: {
-                display: true,
-                beginAtZero: true,
-                title: {
-                    display: true,
-                    text: 'Mood Rating'
-                },
-                max: 10
-            },
-            x: {
-                display: true
-            }
-        },
-        plugins: {
-            legend: {
-                display: false
-            }
+      responsive: true,
+      maintainAspectRatio: false,
+      layout: {
+        padding: {
+          top: 30 // Adjust this value to fit the title properly
         }
+      },
+      scales: {
+        y: {
+          display: true,
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: 'Mood Rating'
+          },
+          max: 10
+        },
+        x: {
+          display: true
+        }
+      },
+      plugins: {
+        legend: {
+          display: false
+        }
+      }
     }
-});
+  });
 
 }
 
