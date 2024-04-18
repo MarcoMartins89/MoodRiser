@@ -8,8 +8,13 @@ export default {
     path: "/result",
     controller: "resultController",
   },
+  tracker: {
+    path: '/tracker',
+    controller: 'trackerController'
+  },
   currentPath: {
     path: "",
     controller: "",
   },
+  
 };
