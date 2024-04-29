@@ -37,6 +37,16 @@ MoodRiser is a web application designed to help people feel better by providing 
 4. Explore the suggested Spotify playlist, motivational quote, and book suggestions to uplift your mood.
 5. Track your mood over time by accessing the mood history feature.
 
+## ScreenShots
+![Screenshot](https://github.com/MarcoMartins89/gitCommitCrimes/blob/moodtracker/HOMEVIEW.png)
+![Screenshot](https://github.com/MarcoMartins89/gitCommitCrimes/blob/moodtracker/RESULTVIEW1.png)
+![Screenshot](https://github.com/MarcoMartins89/gitCommitCrimes/blob/moodtracker/RESULTVIEW2.png)
+
+
+
+
+
+
 If you ever feel overwhelmed or in need of professional support, please don't hesitate to reach out to qualified professionals for assistance.
 
 ---
