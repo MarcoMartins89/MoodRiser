@@ -1,0 +1,3 @@
+[submodule "moodirser-backend"]
+	path = moodirser-backend
+	url = https://github.com/sawsent/moodirser-backend.git
