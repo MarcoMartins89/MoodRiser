@@ -27,7 +27,7 @@ MoodRiser is a web application designed to help people feel better by providing 
 - **[André Hortelão](https://www.linkedin.com/in/andre-hortelao/)**
 - **[Vicente Figueiredo](https://www.linkedin.com/in/vicentefigueiredo/)**
 - **[Marco Martins](https://www.linkedin.com/in/marco-martins-a-tech/)**
-- **Daniel Carvalho**
+- **]Daniel Carvalho](https://www.linkedin.com/in/danielcarvalho01/)**
 
 ## How to Use
 
